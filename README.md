@@ -1,1 +1,1 @@
-# CrowdfundingPlatform
+The CrowdfundingPlatform project offers a backend server solution designed to efficiently manage and facilitate crowdfunding campaigns. Built on Flask, our server provides robust endpoints for campaign management, transaction handling, and database interaction. Ideal for developers looking to streamline crowdfunding efforts, this platform ensures seamless operations, from initiating campaigns to completing transactions.
