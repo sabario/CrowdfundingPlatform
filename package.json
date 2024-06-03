@@ -1,0 +1,16 @@
+{
+  "name": "crowdfunding_platform",
+  "version": "1.0.0",
+  "description": "Crowdfunding Platform frontend",
+  "main": "main.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "web3": "^1.5.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0"
+  }
+}
