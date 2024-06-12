@@ -4,7 +4,6 @@ import sqlite3
 
 DB_PATH = os.getenv("CROWDFUNDING_DB_PATH", "crowdfunding_platform.db")
 
-# Global connection object
 conn = None
 
 def create_connection():
@@ -14,7 +13,7 @@ def create_connection():
             conn = sqlite3.connect(DB_PATH)
             print("Opened database successfully")
         except Exception as e:
-            print(e)
+            print(f"Database connection error: {e}")
     return conn
 
 def close_connection():
@@ -26,14 +25,14 @@ def close_connection():
 
 def create_campaign(campaign_details):
     conn = create_connection()
-    sql = ''' INSERT INTO campaigns(name,target_amount,start_date,end_date)
+    sql = ''' INSERT INTO campaigns(name, target_amount, start_date, end_date)
               VALUES(?,?,?,?) '''
     try:
         cur = conn.cursor()
         cur.execute(sql, campaign_details)
         conn.commit()
     except Exception as e:
-        print(e)
+        print(f"Error creating campaign: {e}")
 
 def get_campaigns():
     conn = create_connection()
@@ -44,12 +43,12 @@ def get_campaigns():
         campaigns = cur.fetchall()
         return campaigns
     except Exception as e:
-        print(e)
+        print(f"Error retrieving campaigns: {e}")
         return []
         
 def make_contribution(campaign_id, amount):
     conn = create_connection()
-    sql = ''' INSERT INTO contributions(campaign_id,amount,contribution_date)
+    sql = ''' INSERT INTO contributions(campaign_id, amount, contribution_date)
               VALUES(?,?,?) '''
     contribution_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     try:
@@ -57,7 +56,7 @@ def make_contribution(campaign_id, amount):
         cur.execute(sql, (campaign_id, amount, contribution_date))
         conn.commit()
     except Exception as e:
-        print(e)
+        print(f"Error making contribution: {e}")
 
 if __name__ == "__main__":
     try:
