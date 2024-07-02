@@ -13,16 +13,26 @@ async function connectWallet() {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     console.log('Connected to the wallet successfully.');
   } catch (error) {
-  console.error('Error connecting to the wallet:', error);
+    console.error('Error connecting to the wallet:', error);
   }
 }
 
 const contract = new window.web3.eth.Contract(ABI, CONTRACT_ADDRESS);
 
+// Creating a basic cache
+const cache = new Map();
+
 async function fetchCampaigns() {
+  const cacheKey = 'campaigns';
+  if (cache.has(cacheKey)) {
+    return cache.get(cacheKey);
+  }
+  
   try {
     const response = await axios.get(`${API_ENDPOINT}/campaigns`);
-    return response.data;
+    const data = response.data;
+    cache.set(cacheKey, data);
+    return data;
   } catch (error) {
     console.error('Error fetching campaigns:', error);
     return [];
@@ -45,8 +55,19 @@ function displayCampaigns(campaigns) {
   });
 }
 
-async function handleContribute(campaignId, amount) {
+async function getAccounts() {
+  const cacheKey = 'accounts';
+  if (cache.has(cacheKey)) {
+    return cache.get(cacheCast);
+  }
+
   const accounts = await window.web3.eth.getAccounts();
+  cache.set(cacheKey, accounts);
+  return accounts;
+}
+
+async function handleContribute(campaignId, amount) {
+  const accounts = await getAccounts();
   if (accounts.length === 0) {
     console.warn('Please connect your wallet to contribute.');
     return;
