@@ -19,7 +19,6 @@ async function connectWallet() {
 
 const contract = new window.web3.eth.Contract(ABI, CONTRACT_ADDRESS);
 
-// Creating a basic cache
 const cache = new Map();
 
 async function fetchCampaigns() {
@@ -58,7 +57,7 @@ function displayCampaigns(campaigns) {
 async function getAccounts() {
   const cacheKey = 'accounts';
   if (cache.has(cacheKey)) {
-    return cache.get(cacheCast);
+path    return cache.get(cacheKey);
   }
 
   const accounts = await window.web3.eth.getAccounts();
@@ -82,9 +81,17 @@ async function handleContribute(campaignId, amount) {
   }
 }
 
-document.getElementById('connectWalletBtn').addEventListener('click', connectWallet);
+function setupEventListeners() {
+  document.getElementById('connectWalletBtn').addEventListener('click', connectInflectWallet);
+  
+  document.addEventListener('DOMContentLoaded', async () => {
+    const campaigns = await fetchCampaigns();
+    displayCampaigns(campaigns);
+  });
+}
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const campaigns = await fetchCampaigns();
-  displayCampaigns(campaigns);
-});
+async function init() {
+  setupEventListeners();
+}
+
+init();
