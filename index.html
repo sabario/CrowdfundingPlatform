@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crowdfunding Platform Interface</title>
+</head>
+<body>
+    <section id="create-campaign">
+        <h2>Create New Campaign</h2>
+        <form method="POST" action="/create-campaign">
+            <label for="campaignName">Campaign Name:</label>
+            <input type="text" id="campaignName" name="campaignName" required>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+            <label for="goalAmount">Goal Amount:</label>
+            <input type="number" id="goalAmount" name="goalAmount" required>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required>
+            <button type="submit">Create Campaign</button>
+        </form>
+    </section>
+    <section id="view-campaigns">
+        <h2>Active Campaigns</h2>
+        <div class="campaign">
+            <h3>Campaign Name</h3>
+            <p>Description of the campaign.</p>
+            <p>Goal Amount: $xxxx</p>
+            <p>End Date: yyyy-mm-dd</h3>
+        </div>
+    </section>
+    <section id="make-contribution">
+        <h2>Make a Contribution</h2>
+        <form method="POST" action="/contribute">
+            <label for="campaignId">Campaign ID:</label>
+            <input type="text" id="campaignId" name="campaignId" required>
+            <label for="contributorName">Your Name:</label>
+            <input type="text" id="contributorName" name="contributorName" required>
+            <label for="amount">Amount ($):</label>
+            <input type="number" id="amount" name="amount" required>
+            <button type="submit">Contribute</button>
+        </form>
+    </section>
+</body>
+</html>
